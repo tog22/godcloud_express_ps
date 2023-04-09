@@ -14,10 +14,15 @@ app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
 app.use(bodyParser.text({ type: "text/html" }));
 
 app.get("/", async (req, res) => {
-  const { rows } = await pool.query("SELECT NOW()");
-  res.send(`Hello, World! The time from the DB is ${rows[0].now}`);
+	const { rows } = await pool.query("SELECT NOW()");
+	res.send(`Hello, World! The time from the DB is ${rows[0].now}`);
+});
+
+app.get("/", async (req, res) => {
+	const { rows } = await pool.query("SELECT * FROM users");
+	res.json(rows)
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+	console.log(`Example app listening at http://localhost:${port}`);
 });
